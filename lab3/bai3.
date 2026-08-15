@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class Bai3_PTBacNhat extends JFrame {
+    private JTextField txtA = new JTextField(10);
+    private JTextField txtB = new JTextField(10);
+    private JLabel lblResult = new JLabel("Kết quả: ");
+
+    public Bai3_PTBacNhat() {
+        setTitle("Giải phương trình bậc nhất");
+        setSize(350, 180);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new GridLayout(4, 2, 5, 5));
+
+        add(new JLabel(" Nhập a:"));
+        add(txtA);
+        add(new JLabel(" Nhập b:"));
+        add(txtB);
+
+        JButton btnGiai = new JButton("Giải");
+        btnGiai.addActionListener(e -> solve());
+        add(btnGiai);
+        add(lblResult);
+    }
+
+    private void solve() {
+        try {
+            double a = Double.parseDouble(txtA.getText().trim());
+            double b = Double.parseDouble(txtB.getText().trim());
+
+            if (a == 0) {
+                if (b == 0) {
+                    lblResult.setText("Kết quả: Vô số nghiệm");
+                } else {
+                    lblResult.setText("Kết quả: Vô nghiệm");
+                }
+            } else {
+                double x = -b / a;
+                lblResult.setText(String.format("Kết quả: x = %.2f", x));
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Bai3_PTBacNhat().setVisible(true));
+    }
+}
